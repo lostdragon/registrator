@@ -202,7 +202,7 @@ func (b *Bridge) add(containerId string, quiet bool) {
 
 	// Extract configured host port mappings, relevant when using --net=host
 	for port, _ := range container.Config.ExposedPorts {
-		published := []dockerapi.PortBinding{ {"0.0.0.0", port.Port()}, }
+		published := []dockerapi.PortBinding{{"0.0.0.0", port.Port()}}
 		ports[string(port)] = servicePort(container, port, published)
 	}
 
@@ -309,7 +309,7 @@ func (b *Bridge) newService(port ServicePort, isgroup bool) *Service {
 				service.IP = containerIp
 			}
 			log.Println("using container IP " + service.IP + " from label '" +
-				b.config.UseIpFromLabel  + "'")
+				b.config.UseIpFromLabel + "'")
 		} else {
 			log.Println("Label '" + b.config.UseIpFromLabel +
 				"' not found in container configuration")
@@ -405,9 +405,9 @@ func (b *Bridge) shouldRemove(containerId string) bool {
 	case container.State.Running:
 		log.Printf("registrator: not removing container %v, still running", containerId[:12])
 		return false
-	case container.State.ExitCode == 0:
+	case container.State.ExitCode == 0 && b.config.DeregisterCheck == "on-success":
 		return true
-	case container.State.ExitCode&dockerSignaledBit == dockerSignaledBit:
+	case container.State.ExitCode&dockerSignaledBit == dockerSignaledBit && b.config.DeregisterCheck == "on-success":
 		return true
 	}
 	return false

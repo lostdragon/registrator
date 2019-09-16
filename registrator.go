@@ -12,7 +12,7 @@ import (
 
 	dockerapi "github.com/fsouza/go-dockerclient"
 	"github.com/gliderlabs/pkg/usage"
-	"github.com/gliderlabs/registrator/bridge"
+	"registrator/bridge"
 )
 
 var Version string
@@ -27,7 +27,7 @@ var refreshInterval = flag.Int("ttl-refresh", 0, "Frequency with which service T
 var refreshTtl = flag.Int("ttl", 0, "TTL for services (default is no expiry)")
 var forceTags = flag.String("tags", "", "Append tags for all registered services")
 var resyncInterval = flag.Int("resync", 0, "Frequency with which services are resynchronized")
-var deregister = flag.String("deregister", "always", "Deregister exited services \"always\" or \"on-success\"")
+var deregister = flag.String("deregister", "always", "Deregister exited services \"always\" or \"on-success\" or \"on-remove\"")
 var retryAttempts = flag.Int("retry-attempts", 0, "Max retry attempts to establish a connection with the backend. Use -1 for infinite retries")
 var retryInterval = flag.Int("retry-interval", 2000, "Interval (in millisecond) between retry-attempts.")
 var cleanup = flag.Bool("cleanup", false, "Remove dangling services")
@@ -98,8 +98,8 @@ func main() {
 	docker, err := dockerapi.NewClientFromEnv()
 	assert(err)
 
-	if *deregister != "always" && *deregister != "on-success" {
-		assert(errors.New("-deregister must be \"always\" or \"on-success\""))
+	if *deregister != "always" && *deregister != "on-success" && *deregister != "on-remove" {
+		assert(errors.New("-deregister must be \"always\" or \"on-success\" or \"on-remove\""))
 	}
 
 	b, err := bridge.New(docker, flag.Arg(0), bridge.Config{

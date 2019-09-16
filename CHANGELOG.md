@@ -10,6 +10,17 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+## [v8] - 2019-09-12
+### Fixed
+
+### Added
+- Option to only deregister containers on remove
+
+### Removed
+
+### Changed
+- Migrating from dep to Go 1.11+ modules
+
 ## [v7] - 2016-03-05
 ### Fixed
 - Providing a SERVICE_NAME for a container with multiple ports exposed would cause services to overwrite each other
@@ -82,7 +93,8 @@ All notable changes to this project will be documented in this file.
 - Dropped Godeps for now
 
 
-[unreleased]: https://github.com/gliderlabs/registrator/compare/v7...HEAD
+[unreleased]: https://github.com/gliderlabs/registrator/compare/v8...HEAD
+[v8]: https://github.com/gliderlabs/registrator/compare/v7...v8
 [v7]: https://github.com/gliderlabs/registrator/compare/v6...v7
 [v6]: https://github.com/gliderlabs/registrator/compare/v5...v6
 [v5]: https://github.com/gliderlabs/registrator/compare/v0.4.0...v5

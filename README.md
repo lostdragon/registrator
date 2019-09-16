@@ -45,7 +45,7 @@ Usage of /bin/registrator:
   /bin/registrator [options] <registry URI>
 
   -cleanup=false: Remove dangling services
-  -deregister="always": Deregister exited services "always" or "on-success"
+  -deregister="always": Deregister exited services "always" or "on-success" or "on-remove"
   -internal=false: Use internal ports instead of published ones
   -ip="": IP for ports mapped to the host
   -resync=0: Frequency with which services are resynchronized
