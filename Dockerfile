@@ -3,7 +3,7 @@ WORKDIR /go/src/github.com/gliderlabs/registrator/
 
 COPY . .
 
-RUN GOPROXY=https://mirrors.aliyun.com/goproxy/ CGO_ENABLED=0 GOOS=linux go build \
+RUN GOPROXY=https://goproxy.io CGO_ENABLED=0 GOOS=linux go build \
 		-a -installsuffix cgo \
 		-ldflags "-X main.Version=$(cat VERSION)" \
 		-o bin/registrator \

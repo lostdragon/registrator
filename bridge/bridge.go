@@ -211,8 +211,21 @@ func (b *Bridge) add(containerId string, quiet bool) {
 		ports[string(port)] = servicePort(container, port, published)
 	}
 
-	if len(ports) == 0 && !quiet {
-		log.Println("ignored:", container.ID[:12], "no published ports")
+	if len(ports) == 0 {
+		port := servicePort(container, "0", nil)
+		service := b.newService(port, false)
+		if service == nil {
+			log.Println("ignored:", container.ID[:12], "no published ports")
+			return
+		}
+
+		err := b.registry.Register(service)
+		if err != nil {
+			log.Println("register failed:", service, err)
+			return
+		}
+		b.services[container.ID] = append(b.services[container.ID], service)
+		log.Println("added:", container.ID[:12], service.ID)
 		return
 	}
 
@@ -259,6 +272,8 @@ func (b *Bridge) newService(port ServicePort, isgroup bool) *Service {
 		ip, err := net.ResolveIPAddr("ip", hostname)
 		if err == nil {
 			port.HostIP = ip.String()
+		} else {
+			port.HostIP = ""
 		}
 	}
 
@@ -407,7 +422,7 @@ func (b *Bridge) shouldRemove(containerId string) bool {
 		return false
 	case container.State.ExitCode == 0 && b.config.DeregisterCheck == "on-success":
 		return true
-	case container.State.ExitCode&dockerSignaledBit == dockerSignaledBit && b.config.DeregisterCheck == "on-success":
+	case container.State.ExitCode != 0 && b.config.DeregisterCheck == "on-success":
 		return true
 	}
 	return false

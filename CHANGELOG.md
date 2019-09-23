@@ -10,6 +10,17 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+## [v9] - 2019-09-23
+### Fixed
+
+### Added
+
+### Removed
+
+### Changed
+- Register no exposed port service
+- Don't detect container exit code
+
 ## [v8] - 2019-09-12
 ### Fixed
 
@@ -93,8 +104,9 @@ All notable changes to this project will be documented in this file.
 - Dropped Godeps for now
 
 
-[unreleased]: https://github.com/gliderlabs/registrator/compare/v8...HEAD
-[v8]: https://github.com/gliderlabs/registrator/compare/v7...v8
-[v7]: https://github.com/gliderlabs/registrator/compare/v6...v7
-[v6]: https://github.com/gliderlabs/registrator/compare/v5...v6
-[v5]: https://github.com/gliderlabs/registrator/compare/v0.4.0...v5
+[unreleased]: https://github.com/lostdragon/registrator/compare/v9...HEAD
+[v9]: https://github.com/lostdragon/registrator/compare/v8...v9
+[v8]: https://github.com/lostdragon/registrator/compare/v7...v8
+[v7]: https://github.com/lostdragon/registrator/compare/v6...v7
+[v6]: https://github.com/lostdragon/registrator/compare/v5...v6
+[v5]: https://github.com/lostdragon/registrator/compare/v0.4.0...v5

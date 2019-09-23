@@ -138,7 +138,7 @@ func main() {
 	assert(docker.AddEventListener(events))
 	log.Println("Listening for Docker events ...")
 
-	b.Sync(false)
+	b.Sync(true)
 
 	quit := make(chan struct{})
 
